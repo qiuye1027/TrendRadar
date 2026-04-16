@@ -6,51 +6,60 @@ schedule:
   enabled: true
   preset: "always_on"
 
-# 彻底关闭所有热搜
+# ==========================
+# 开启可用平台（无500、不报错）
+# ==========================
 platforms:
-  enabled: false
-  sources: []
-
-# RSS 只抓一人食/微醺
-rss:
   enabled: true
-  freshness_filter:
-    enabled: true
-    max_age_days: 1
-  feeds:
-    - id: "xhs_yirenshi"
-      name: "小红书一人食"
-      url: "https://rsshub.app/xiaohongshu/search/keyword/一人食"
-    - id: "xhs_weixun"
-      name: "小红书微醺"
-      url: "https://rsshub.app/xiaohongshu/search/keyword/微醺"
-    - id: "xhs_wancan"
-      name: "小红书晚餐"
-      url: "https://rsshub.app/xiaohongshu/search/keyword/一人食晚餐"
-    - id: "xhs_xiaozhuo"
-      name: "小红书小酌"
-      url: "https://rsshub.app/xiaohongshu/search/keyword/小酌"
+  sources:
+    - id: "weibo"
+      name: "微博"
+    - id: "toutiao"
+      name: "今日头条"
+    - id: "zhihu"
+      name: "知乎"
+    - id: "baidu"
+      name: "百度热搜"
 
+# ==========================
+# 关闭报错的 RSS
+# ==========================
+rss:
+  enabled: false
+  feeds: []
+
+# ==========================
+# 报告模式（必须用 daily）
+# ==========================
 report:
-  mode: "incremental"
-  title: "一人食·微醺 热点"
+  mode: "daily"
+  title: "一人食·微醺 热点选题"
   display_mode: "keyword"
   content_length: 120
+  max_news_per_keyword: 0
 
+# ==========================
+# 关键词筛选（你的赛道）
+# ==========================
 filter:
   method: "keyword"
 
+# ==========================
+# 显示配置（全开）
+# ==========================
 display:
   region_order:
-    - rss
+    - hotlist
   regions:
-    hotlist: false
+    hotlist: true
     new_items: false
-    rss: true
+    rss: false
     standalone: false
     ai_analysis: false
 
-# 企业微信推送（你自己的机器人）
+# ==========================
+# 企业微信推送（你的机器人）
+# ==========================
 notification:
   enabled: true
   channels:
@@ -58,7 +67,9 @@ notification:
       webhook_url: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=c069a2a3-f57f-4a3c-aa90-1fb9b71a7a57"
       msg_type: "text"
 
-# 关闭所有AI
+# ==========================
+# 关闭 AI 避免报错
+# ==========================
 ai:
   api_key: ""
 ai_analysis:
